@@ -1,0 +1,330 @@
+{
+  "nodes": [
+    {
+      "id": "serializable",
+      "type": "protocol",
+      "label": "Serializable",
+      "position": { "x": 400, "y": 100 },
+      "size": { "width": 280, "height": 200 },
+      "sections": [
+        {
+          "id": "methods-1",
+          "label": "Methods",
+          "isCollapsed": false,
+          "items": [
+            { "id": "to_dict", "label": "to_dict() -> dict", "type": "method" },
+            { "id": "from_dict", "label": "from_dict(data: dict)", "type": "method" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "product",
+      "type": "dataclass",
+      "label": "Product",
+      "position": { "x": 150, "y": 400 },
+      "size": { "width": 280, "height": 320 },
+      "sections": [
+        {
+          "id": "fields-1",
+          "label": "Fields",
+          "isCollapsed": false,
+          "items": [
+            { "id": "id", "label": "id", "type": "str" },
+            { "id": "name", "label": "name", "type": "str" },
+            { "id": "price", "label": "price", "type": "Decimal" },
+            { "id": "stock", "label": "stock", "type": "int" },
+            { "id": "category", "label": "category", "type": "str" }
+          ]
+        },
+        {
+          "id": "methods-2",
+          "label": "Methods",
+          "isCollapsed": true,
+          "items": [
+            { "id": "is_available", "label": "is_available() -> bool", "type": "method" },
+            { "id": "apply_discount", "label": "apply_discount(pct: float)", "type": "method" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "order",
+      "type": "dataclass",
+      "label": "Order",
+      "position": { "x": 650, "y": 400 },
+      "size": { "width": 280, "height": 380 },
+      "sections": [
+        {
+          "id": "fields-2",
+          "label": "Fields",
+          "isCollapsed": false,
+          "items": [
+            { "id": "order_id", "label": "order_id", "type": "str" },
+            { "id": "customer_id", "label": "customer_id", "type": "str" },
+            { "id": "items", "label": "items", "type": "List[OrderItem]" },
+            { "id": "total", "label": "total", "type": "Decimal" },
+            { "id": "status", "label": "status", "type": "OrderStatus" }
+          ]
+        },
+        {
+          "id": "metadata",
+          "label": "Metadata",
+          "isCollapsed": false,
+          "items": [
+            { "id": "created_at", "label": "created_at", "type": "datetime" },
+            { "id": "updated_at", "label": "updated_at", "type": "datetime" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inventory",
+      "type": "class",
+      "label": "InventoryManager",
+      "position": { "x": 100, "y": 800 },
+      "size": { "width": 300, "height": 340 },
+      "sections": [
+        {
+          "id": "fields-3",
+          "label": "Fields",
+          "isCollapsed": false,
+          "items": [
+            { "id": "products", "label": "products", "type": "Dict[str, Product]" },
+            { "id": "warehouse", "label": "warehouse", "type": "Warehouse" }
+          ]
+        },
+        {
+          "id": "methods-3",
+          "label": "Methods",
+          "isCollapsed": false,
+          "items": [
+            { "id": "add_product", "label": "add_product(product: Product)", "type": "method" },
+            { "id": "remove_product", "label": "remove_product(id: str)", "type": "method" },
+            { "id": "update_stock", "label": "update_stock(id: str, qty: int)", "type": "method" },
+            { "id": "check_availability", "label": "check_availability(id: str) -> bool", "type": "method" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "order-processor",
+      "type": "class",
+      "label": "OrderProcessor",
+      "position": { "x": 500, "y": 800 },
+      "size": { "width": 300, "height": 400 },
+      "sections": [
+        {
+          "id": "fields-4",
+          "label": "Fields",
+          "isCollapsed": false,
+          "items": [
+            { "id": "inventory", "label": "inventory", "type": "InventoryManager" },
+            { "id": "payment", "label": "payment", "type": "PaymentGateway" }
+          ]
+        },
+        {
+          "id": "methods-4",
+          "label": "Methods",
+          "isCollapsed": false,
+          "items": [
+            { "id": "create_order", "label": "create_order(items: List) -> Order", "type": "method" },
+            { "id": "validate_order", "label": "validate_order(order: Order) -> bool", "type": "method" },
+            { "id": "process_payment", "label": "process_payment(order: Order)", "type": "method" },
+            { "id": "fulfill_order", "label": "fulfill_order(order: Order)", "type": "method" }
+          ]
+        },
+        {
+          "id": "events",
+          "label": "Events",
+          "isCollapsed": true,
+          "items": [
+            { "id": "on_order_created", "label": "on_order_created", "type": "Event" },
+            { "id": "on_payment_success", "label": "on_payment_success", "type": "Event" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "payment",
+      "type": "class",
+      "label": "PaymentGateway",
+      "position": { "x": 900, "y": 800 },
+      "size": { "width": 280, "height": 300 },
+      "sections": [
+        {
+          "id": "fields-5",
+          "label": "Fields",
+          "isCollapsed": false,
+          "items": [
+            { "id": "api_key", "label": "api_key", "type": "str" },
+            { "id": "provider", "label": "provider", "type": "str" }
+          ]
+        },
+        {
+          "id": "methods-5",
+          "label": "Methods",
+          "isCollapsed": false,
+          "items": [
+            { "id": "charge", "label": "charge(amount: Decimal) -> bool", "type": "method" },
+            { "id": "refund", "label": "refund(transaction_id: str)", "type": "method" },
+            { "id": "validate_card", "label": "validate_card(card: Card) -> bool", "type": "method" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "customer",
+      "type": "dataclass",
+      "label": "Customer",
+      "position": { "x": 950, "y": 400 },
+      "size": { "width": 280, "height": 340 },
+      "sections": [
+        {
+          "id": "fields-6",
+          "label": "Fields",
+          "isCollapsed": false,
+          "items": [
+            { "id": "customer_id", "label": "customer_id", "type": "str" },
+            { "id": "email", "label": "email", "type": "str" },
+            { "id": "name", "label": "name", "type": "str" }
+          ]
+        },
+        {
+          "id": "contact",
+          "label": "Contact Info",
+          "isCollapsed": false,
+          "items": [
+            { "id": "phone", "label": "phone", "type": "str" },
+            { "id": "address", "label": "address", "type": "Address" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "notification",
+      "type": "class",
+      "label": "NotificationService",
+      "position": { "x": 1250, "y": 650 },
+      "size": { "width": 300, "height": 280 },
+      "sections": [
+        {
+          "id": "methods-6",
+          "label": "Methods",
+          "isCollapsed": false,
+          "items": [
+            { "id": "send_email", "label": "send_email(to: str, subject: str)", "type": "method" },
+            { "id": "send_sms", "label": "send_sms(to: str, message: str)", "type": "method" },
+            { "id": "notify_order_status", "label": "notify_order_status(order: Order)", "type": "method" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analytics",
+      "type": "class",
+      "label": "AnalyticsEngine",
+      "position": { "x": 1250, "y": 100 },
+      "size": { "width": 300, "height": 300 },
+      "sections": [
+        {
+          "id": "methods-7",
+          "label": "Methods",
+          "isCollapsed": false,
+          "items": [
+            { "id": "track_order", "label": "track_order(order: Order)", "type": "method" },
+            { "id": "calculate_revenue", "label": "calculate_revenue() -> Decimal", "type": "method" },
+            { "id": "get_popular_products", "label": "get_popular_products(n: int) -> List", "type": "method" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cache",
+      "type": "class",
+      "label": "CacheManager",
+      "position": { "x": 1600, "y": 400 },
+      "size": { "width": 280, "height": 260 },
+      "sections": [
+        {
+          "id": "methods-8",
+          "label": "Methods",
+          "isCollapsed": false,
+          "items": [
+            { "id": "get", "label": "get(key: str) -> Any", "type": "method" },
+            { "id": "set", "label": "set(key: str, value: Any)", "type": "method" },
+            { "id": "invalidate", "label": "invalidate(key: str)", "type": "method" }
+          ]
+        }
+      ]
+    }
+  ],
+  "arrows": [
+    {
+      "id": "arrow-1",
+      "type": "inheritance",
+      "source": "product",
+      "target": "serializable"
+    },
+    {
+      "id": "arrow-2",
+      "type": "inheritance",
+      "source": "order",
+      "target": "serializable"
+    },
+    {
+      "id": "arrow-3",
+      "type": "composition",
+      "source": "inventory",
+      "target": "product"
+    },
+    {
+      "id": "arrow-4",
+      "type": "composition",
+      "source": "order-processor",
+      "target": "order"
+    },
+    {
+      "id": "arrow-5",
+      "type": "aggregation",
+      "source": "order-processor",
+      "target": "inventory"
+    },
+    {
+      "id": "arrow-6",
+      "type": "aggregation",
+      "source": "order-processor",
+      "target": "payment"
+    },
+    {
+      "id": "arrow-7",
+      "type": "dependency",
+      "source": "order",
+      "target": "customer"
+    },
+    {
+      "id": "arrow-8",
+      "type": "dependency",
+      "source": "order-processor",
+      "target": "notification"
+    },
+    {
+      "id": "arrow-9",
+      "type": "dependency",
+      "source": "analytics",
+      "target": "order"
+    },
+    {
+      "id": "arrow-10",
+      "type": "dependency",
+      "source": "notification",
+      "target": "customer"
+    },
+    {
+      "id": "arrow-11",
+      "type": "dependency",
+      "source": "inventory",
+      "target": "cache"
+    }
+  ]
+}
